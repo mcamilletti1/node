@@ -14,6 +14,7 @@ import os
 import subprocess
 import sys
 import platform
+from security import safe_command
 
 DEFAULT_ARCH = "x64"
 if platform.machine() == "arm64":
@@ -39,7 +40,7 @@ import gm
 
 def _Call(cmd, silent=False):
   if not silent: print("# %s" % cmd)
-  return subprocess.call(cmd, shell=True)
+  return safe_command.run(subprocess.call, cmd, shell=True)
 
 def _Write(filename, content):
   with open(filename, "w") as f:
