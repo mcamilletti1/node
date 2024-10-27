@@ -4,11 +4,11 @@
 
 import optparse
 import os
-import random
 
 from functools import cached_property
 
 from testrunner.testproc import fuzzer
+import secrets
 
 
 class AugmentedOptions(optparse.Values):
@@ -22,7 +22,7 @@ class AugmentedOptions(optparse.Values):
 
   def fuzzer_rng(self):
     if not getattr(self,'_fuzzer_rng', None):
-      self._fuzzer_rng = random.Random(self.fuzzer_random_seed)
+      self._fuzzer_rng = secrets.SystemRandom().Random(self.fuzzer_random_seed)
     return self._fuzzer_rng
 
   @cached_property
