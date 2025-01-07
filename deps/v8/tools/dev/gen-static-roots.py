@@ -12,6 +12,7 @@ import tempfile
 import shutil
 import platform
 from pathlib import Path
+from security import safe_command
 
 # Detect if we have goma
 
@@ -95,7 +96,7 @@ args = parser.parse_args()
 
 def run(cmd, **kwargs):
   print(f"# CMD: {cmd} {kwargs}")
-  return subprocess.run(cmd, **kwargs, check=True)
+  return safe_command.run(subprocess.run, cmd, **kwargs, check=True)
 
 
 def build(path, gn_args):
