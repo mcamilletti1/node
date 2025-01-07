@@ -8,6 +8,7 @@ from pathlib import Path
 import argparse
 import subprocess
 import sys
+from security import safe_command
 
 
 def main():
@@ -77,7 +78,7 @@ def run_get_hints(output_dir, v8_target_cpu):
 
 def run(cmd, **kwargs):
   print(f"# CMD: {cmd} {kwargs}")
-  subprocess.run(cmd, **kwargs, check=True)
+  safe_command.run(subprocess.run, cmd, **kwargs, check=True)
 
 
 if __name__ == "__main__":  # pragma: no cover

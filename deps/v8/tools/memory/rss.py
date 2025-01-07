@@ -6,6 +6,7 @@
 import subprocess
 import sys
 import time
+from security import safe_command
 
 kDefaultSamplerateSecs = 0.001
 
@@ -53,7 +54,7 @@ def Main():
   print(f"command: {cmd}")
 
   # Run the child process and observe it.
-  process = subprocess.Popen(cmd, shell=True)
+  process = safe_command.run(subprocess.Popen, cmd, shell=True)
   pid = process.pid
   print(f"pid: {pid}")
   statusfile = f"/proc/{pid}/status"
